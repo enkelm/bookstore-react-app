@@ -1,0 +1,20 @@
+:root {
+  /*===== Colores =====*/
+  --first-color: #1a73e8;
+  --input-color: #80868b;
+  --border-color: #dadce0;
+
+  /*===== Fuente y tipografia =====*/
+  --body-font: "Roboto", sans-serif;
+  --normal-font-size: 1rem;
+  --small-font-size: 0.75rem;
+}
+
+.button {
+  border: none;
+  outline: none;
+  padding: 0.75rem 2rem;
+  color: #fff;
+  background-color: var(--first-color);
+  border-radius: 0.5rem;
+}
