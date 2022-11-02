@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "../../UI/Card/Card";
+import Button from "../../UI/Button/Button";
 import classes from "./Register.module.css";
 
 const FNAME_REGEX = /^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/;
@@ -56,17 +57,12 @@ const Register = () => {
 
   useEffect(() => {
     const result = FNAME_REGEX.test(fname);
-    setValidEmail(result);
+    setValidFname(result);
   }, [fname]);
 
   useEffect(() => {
     const result = LNAME_REGEX.test(lname);
-    setValidEmail(result);
-  }, [lname]);
-
-  useEffect(() => {
-    const result = LNAME_REGEX.test(lname);
-    setValidEmail(result);
+    setValidLname(result);
   }, [lname]);
 
   useEffect(() => {
@@ -91,7 +87,7 @@ const Register = () => {
   }, [fname, lname, email, pass, passConfirm, phone]);
 
   return (
-    <Card className={classes.form}>
+    <Card className={classes.wrapper}>
       <p
         ref={errRef}
         className={errorMsg ? classes.errmsg : classes.offscreen}
@@ -101,9 +97,19 @@ const Register = () => {
       </p>
 
       <h1>Register</h1>
-      <form>
+      <form className={classes.form}>
         <div>
-          <label htmlFor="first-name">First Name</label>
+          <label htmlFor="first-name">
+            First Name
+            <span className={validFname ? classes.valid : classes.hide}>
+              <FontAwesomeIcon icon={faCheck} />
+            </span>
+            <span
+              className={validFname || !email ? classes.hide : classes.invalid}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+          </label>
 
           <input
             type="text"
@@ -121,7 +127,17 @@ const Register = () => {
         </div>
 
         <div>
-          <label htmlFor="last-name">Last Name</label>
+          <label htmlFor="last-name">
+            Last Name
+            <span className={validLname ? classes.valid : classes.hide}>
+              <FontAwesomeIcon icon={faCheck} />
+            </span>
+            <span
+              className={validLname || !email ? classes.hide : classes.invalid}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+          </label>
 
           <input
             type="text"
@@ -204,12 +220,69 @@ const Register = () => {
         <p
           id="passnote"
           className={
-            passFocus && !validEmail ? classes.instructions : classes.offscreen
+            passFocus && !validPass ? classes.instructions : classes.offscreen
           }
         >
-          <FontAwesomeIcon icon={faInfoCircle} /> Invalid email!
+          <FontAwesomeIcon icon={faInfoCircle} /> Invalid password!
         </p>
+
+        <div>
+          <label htmlFor="confirm-pass">
+            Confirm Password
+            <span
+              className={
+                validPassConfirm && passConfirm ? classes.valid : classes.hide
+              }
+            >
+              <FontAwesomeIcon icon={faCheck} />
+            </span>
+            <span
+              className={
+                validPassConfirm || !passConfirm
+                  ? classes.hide
+                  : classes.invalid
+              }
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+          </label>
+          <input
+            type="password"
+            id="confirm-pass"
+            onChange={(e) => setPassConfirm(e.target.value)}
+            required
+            aria-invalid={validPassConfirm ? "false" : true}
+            aria-describedby="confirm-passnote"
+            onFocus={() => setPassConfirmFocus(true)}
+            onBlur={() => setPassConfirmFocus(false)}
+          />
+        </div>
+        <p
+          id="confirm-passnote"
+          className={
+            passFocus && !validPass ? classes.instructions : classes.offscreen
+          }
+        >
+          <FontAwesomeIcon icon={faInfoCircle} /> Must match the first password
+          input field.
+        </p>
+        <Button
+          type="submit"
+          disabled={
+            !validFname || !validLname || !validEmail || !validPassConfirm
+              ? true
+              : false
+          }
+        >
+          Sign Up
+        </Button>
       </form>
+      <p>
+        Already registered?
+        <span>
+          <a href="#">Sign In</a>
+        </span>
+      </p>
     </Card>
   );
 };

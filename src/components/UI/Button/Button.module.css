@@ -18,3 +18,7 @@
   background-color: var(--first-color);
   border-radius: 0.5rem;
 }
+
+.button:hover {
+  cursor: pointer;
+}
