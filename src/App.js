@@ -7,13 +7,13 @@ import Register from "./components/Authentication/Register/Register";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const loginHandler = (email, password) => {
+  const loginHandler = async (email, password) => {
     setIsLoggedIn(true);
   };
 
   return (
     <React.Fragment>
-      <Register></Register>
+      <Login onLogin={loginHandler} />
     </React.Fragment>
   );
 };

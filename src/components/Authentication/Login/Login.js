@@ -1,43 +1,63 @@
-import { useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { createAPIEndpoint, ENDPOINTS } from "../../../api/axios";
+import AuthContext from "../../../store/AuthProvider";
 
 import Card from "../../UI/Card/Card";
 import Button from "../../UI/Button/Button";
 import classes from "./Login.module.css";
 
 const Login = (props) => {
-  const [enteredEmail, setEnteredEmail] = useState("");
+  const { setAuth } = useContext(AuthContext);
+
+  const emailRef = useRef("");
+  const passRef = useRef("");
+
+  const [email, setEmail] = useState("");
   const [emailIsValid, setEmailIsValid] = useState();
-  const [enteredPassword, setEnteredPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
   const emailChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
+    setEmail(event.target.value);
 
     setFormIsValid(
-      event.target.value.includes("@") && enteredPassword.trim().length > 6
+      event.target.value.includes("@") && password.trim().length > 6
     );
   };
 
   const passwordChangeHandler = (event) => {
-    setEnteredPassword(event.target.value);
+    setPassword(event.target.value);
 
-    setFormIsValid(
-      event.target.value.trim().length > 6 && enteredEmail.includes("@")
-    );
+    setFormIsValid(event.target.value.trim().length > 6 && email.includes("@"));
   };
 
   const validateEmailHandler = () => {
-    setEmailIsValid(enteredEmail.includes("@"));
+    setEmailIsValid(email.includes("@"));
   };
 
   const validatePasswordHandler = () => {
-    setPasswordIsValid(enteredPassword.trim().length > 6);
+    setPasswordIsValid(password.trim().length > 6);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(enteredEmail, enteredPassword);
+    try {
+      let user = {
+        email: email,
+        password: password,
+      };
+      const token = createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
+        .create(user)
+        .then((res) => res.data);
+      console.log(token);
+      emailRef.current.value = "";
+      setEmail("");
+      passRef.current.value = "";
+      setPassword("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -54,7 +74,8 @@ const Login = (props) => {
           <input
             type="email"
             id="email"
-            value={enteredEmail}
+            ref={emailRef}
+            value={email}
             onChange={emailChangeHandler}
             onBlur={validateEmailHandler}
           />
@@ -70,7 +91,8 @@ const Login = (props) => {
           <input
             type="password"
             id="password"
-            value={enteredPassword}
+            ref={passRef}
+            value={password}
             onChange={passwordChangeHandler}
             onBlur={validatePasswordHandler}
           />
