@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "../../UI/Card/Card";
 import Button from "../../UI/Button/Button";
 import classes from "./Register.module.css";
+import Modal from "../../UI/Modal/Modal";
 
 const FNAME_REGEX = /^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/;
 const LNAME_REGEX = /^[a-z,.'-]+$/;
@@ -17,7 +18,7 @@ const EMAIL_REGEX =
 const PASS_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 const PHONE_REGEX = /^\+3556[0-9]{8}$/;
 
-const Register = () => {
+const Register = (props) => {
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
@@ -122,10 +123,11 @@ const Register = () => {
     roleRef.current.value = "default";
     setRole("");
     setSuccess(true);
+    if (success) props.close();
   };
 
   return (
-    <>
+    <Modal>
       {success ? (
         <Card className={classes.wrapper}>
           <h1>Success</h1>
@@ -392,7 +394,7 @@ const Register = () => {
           </p>
         </Card>
       )}
-    </>
+    </Modal>
   );
 };
 

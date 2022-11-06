@@ -4,12 +4,34 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: white;
 }
 
 .form div {
   margin: 1rem 0;
   display: grid;
   grid-template-columns: 50% 50%;
+}
+
+.form div label {
+  font-weight: bold;
+  flex: 1;
+  color: #464646;
+  margin-bottom: 0.5rem;
+}
+
+.form div input {
+  flex: 3;
+  font: inherit;
+  padding: 0.35rem 0.35rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.form div input:focus {
+  outline: none;
+  border-color: #4d1601;
+  background: #f0ebea;
 }
 
 .instructions {

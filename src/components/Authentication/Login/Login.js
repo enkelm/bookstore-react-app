@@ -1,13 +1,14 @@
-import { useContext, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createAPIEndpoint, ENDPOINTS } from "../../../api/axios";
-import AuthContext from "../../../store/AuthProvider";
 
 import Card from "../../UI/Card/Card";
 import Button from "../../UI/Button/Button";
 import classes from "./Login.module.css";
+import useAuth from "../../../hooks/useAuth";
+import Modal from "../../UI/Modal/Modal";
 
 const Login = (props) => {
-  const { setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useAuth();
 
   const emailRef = useRef("");
   const passRef = useRef("");
@@ -40,17 +41,18 @@ const Login = (props) => {
     setPasswordIsValid(password.trim().length > 6);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     try {
       let user = {
         email: email,
         password: password,
       };
-      const token = createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
+      const token = await createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
         .create(user)
-        .then((res) => res.data);
-      console.log(token);
+        .then((res) => JSON.stringify(res.data.token))
+        .catch((error) => console.log(error));
+      setAuth({ email, password, token });
       emailRef.current.value = "";
       setEmail("");
       passRef.current.value = "";
@@ -58,52 +60,59 @@ const Login = (props) => {
     } catch (error) {
       console.log(error);
     }
+    if (auth !== {}) props.close();
   };
 
   return (
-    <Card className={classes.login}>
-      <form onSubmit={submitHandler}>
-        <div
-          className={`${classes.control} ${
-            emailIsValid === false ? classes.invalid : ""
-          }`}
-        >
-          <label htmlFor="email">
-            <span>E-Mail</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            ref={emailRef}
-            value={email}
-            onChange={emailChangeHandler}
-            onBlur={validateEmailHandler}
-          />
-        </div>
-        <div
-          className={`${classes.control} ${
-            passwordIsValid === false ? classes.invalid : ""
-          }`}
-        >
-          <label htmlFor="password">
-            <span>Password</span>
-          </label>
-          <input
-            type="password"
-            id="password"
-            ref={passRef}
-            value={password}
-            onChange={passwordChangeHandler}
-            onBlur={validatePasswordHandler}
-          />
-        </div>
-        <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
-            Login
-          </Button>
-        </div>
-      </form>
-    </Card>
+    <Modal>
+      <Card className={classes.login}>
+        <form onSubmit={submitHandler}>
+          <div
+            className={`${classes.control} ${
+              emailIsValid === false ? classes.invalid : ""
+            }`}
+          >
+            <label htmlFor="email">
+              <span>E-Mail</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              ref={emailRef}
+              value={email}
+              onChange={emailChangeHandler}
+              onBlur={validateEmailHandler}
+            />
+          </div>
+          <div
+            className={`${classes.control} ${
+              passwordIsValid === false ? classes.invalid : ""
+            }`}
+          >
+            <label htmlFor="password">
+              <span>Password</span>
+            </label>
+            <input
+              type="password"
+              id="password"
+              ref={passRef}
+              value={password}
+              onChange={passwordChangeHandler}
+              onBlur={validatePasswordHandler}
+            />
+          </div>
+          <div className={classes.actions}>
+            <Button
+              type="submit"
+              className={classes.btn}
+              disabled={!formIsValid}
+            >
+              Login
+            </Button>
+          </div>
+        </form>
+      </Card>
+    </Modal>
   );
 };
 

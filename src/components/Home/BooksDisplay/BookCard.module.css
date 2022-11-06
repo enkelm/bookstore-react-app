@@ -1,0 +1,9 @@
+.book-card {
+  width: 25%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}

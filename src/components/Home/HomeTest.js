@@ -1,7 +1,29 @@
+import useAuth from "../../hooks/useAuth";
+import BookCard from "./BooksDisplay/BookCard";
+import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
+import { createAPIEndpoint, ENDPOINTS, METHODS } from "../../api/axios";
 
 const HomeTest = () => {
-  return <Card>HomeTest</Card>;
+  const { auth } = useAuth();
+
+  const getToken = async () => {
+    await createAPIEndpoint(ENDPOINTS.CATEGORIES, METHODS.PUT)
+      .update(1, {
+        name: "test",
+        displayOrder: 4,
+        createdDateTime: "2022-11-05T18:24:11.112Z",
+      })
+      .then((res) => JSON.stringify(res.data))
+      .catch((error) => console.log(error));
+  };
+
+  return (
+    <Card>
+      <BookCard />
+      <Button onClick={getToken}>Token</Button>
+    </Card>
+  );
 };
 
 export default HomeTest;

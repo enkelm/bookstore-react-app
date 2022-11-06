@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./App.css";
 import Login from "./components/Authentication/Login/Login";
 import Register from "./components/Authentication/Register/Register";
+import HomeTest from "./components/Home/HomeTest";
+import Header from "./components/Layout/MainHeader/Header";
+import Button from "./components/UI/Button/Button";
+import ModalRoot from "./components/UI/Modal/ModalRoot";
+import ModalService from "./components/UI/Modal/services/ModalServices";
+import useAuth from "./hooks/useAuth";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const loginHandler = async (email, password) => {
-    setIsLoggedIn(true);
-  };
+  const { auth } = useAuth();
+  useEffect(() => {
+    localStorage.setItem("access_token", auth.token);
+  }, [auth]);
 
   return (
     <React.Fragment>
-      <Login onLogin={loginHandler} />
+      <ModalRoot />
+      <Header />
+      {auth.token && <HomeTest />}
     </React.Fragment>
   );
 };
