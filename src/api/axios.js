@@ -31,6 +31,6 @@ export const createAPIEndpoint = (endpoint, method) => {
     fetchById: (id) => axios.get(url + id),
     create: (newRecord) => axios.post(url, newRecord),
     update: (id, updatedRecord) => axios.put(url + id, updatedRecord),
-    delete: (id, tokenHeader) => axios.delete(url + id, tokenHeader),
+    delete: (id) => axios.delete(url + id),
   };
 };

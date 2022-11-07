@@ -3,6 +3,7 @@ import BookCard from "./BooksDisplay/BookCard";
 import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
 import { createAPIEndpoint, ENDPOINTS, METHODS } from "../../api/axios";
+import BooksDisplay from "./BooksDisplay/BooksDisplay";
 
 const HomeTest = () => {
   const { auth } = useAuth();
@@ -20,7 +21,7 @@ const HomeTest = () => {
 
   return (
     <Card>
-      <BookCard />
+      <BooksDisplay />
       <Button onClick={getToken}>Token</Button>
     </Card>
   );
