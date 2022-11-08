@@ -1,0 +1,11 @@
+/* .wrapper {
+  margin: auto;
+} */
+
+.card {
+  padding: 1rem;
+}
+.images {
+  height: 20rem;
+  border-radius: 1rem;
+}

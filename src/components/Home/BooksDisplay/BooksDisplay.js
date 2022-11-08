@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { createAPIEndpoint, ENDPOINTS, METHODS } from "../../../api/axios";
+import useAuth from "../../../hooks/useAuth";
 import Button from "../../UI/Button/Button";
 import BookCard from "./BookCard";
 import classes from "./BooksDisplay.module.css";
 
 const BooksDisplay = () => {
-  const [books, setBooks] = useState([]);
+  const { booksCtx, setBooksCtx } = useAuth();
+  // const [books, setBooks] = useState([]);
 
   useEffect(() => {
     const getBooks = async () => {
@@ -14,15 +16,15 @@ const BooksDisplay = () => {
         .then((res) => {
           return res.data;
         });
-      console.log(items);
-      setBooks(items);
+      // setBooks(items);
+      setBooksCtx(items);
     };
     getBooks();
   }, []);
 
   return (
-    <>
-      {books.map((book) => (
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      {booksCtx.map((book) => (
         <BookCard
           key={book.id}
           id={book.id}
@@ -37,7 +39,7 @@ const BooksDisplay = () => {
           price100={book.price100}
         />
       ))}
-    </>
+    </div>
   );
 };
 

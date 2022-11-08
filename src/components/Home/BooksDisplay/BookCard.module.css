@@ -8,3 +8,34 @@
   padding: 2rem;
   overflow: hidden;
 }
+
+.images {
+  width: 70%;
+  height: 90%;
+  border-radius: 1rem;
+}
+
+.book-desc {
+  width: 90%;
+  height: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+  grid-template-areas:
+    "Title Author ."
+    "Description Description ."
+    ". . .";
+}
+.title {
+  grid-area: Title;
+  text-align: center;
+}
+.author {
+  grid-area: Author;
+  text-align: center;
+}
+.description {
+  grid-area: Description;
+  text-align: center;
+}
