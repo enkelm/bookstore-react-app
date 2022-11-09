@@ -22,8 +22,38 @@ const BooksDisplay = () => {
     getBooks();
   }, []);
 
+  const numColumns = () => {
+    if (booksCtx.length === 1) return "1fr";
+    if (booksCtx.length === 2) return "1fr 1fr";
+    if (booksCtx.length >= 3) return "1fr 1fr 1fr";
+  };
+
+  const numRows = () => {
+    if (booksCtx.length <= 3) return "1fr";
+    else {
+      let string = "";
+      let rows = booksCtx.length / 3;
+      rows = Math.round(rows);
+      for (let i = 0; i < rows; i++) {
+        string += "1fr ";
+      }
+      return string;
+    }
+  };
+
+  const columns = numColumns();
+  const rows = numRows();
+
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: columns,
+        gridTemplateRows: rows,
+        gap: "5rem",
+        alignItems: "center",
+      }}
+    >
       {booksCtx.map((book) => (
         <BookCard
           key={book.id}

@@ -1,6 +1,6 @@
 .book-card {
-  width: 25%;
-  height: 40%;
+  /* width: 25%;
+  height: 40%; */
   display: flex;
   flex-direction: column;
   justify-content: center;

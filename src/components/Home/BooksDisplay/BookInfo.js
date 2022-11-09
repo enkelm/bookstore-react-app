@@ -19,7 +19,8 @@ const BookInfo = () => {
     <Modal className={classes.wrapper}>
       <Card className={classes.card}>
         <div className={classes[`book-info`]}>
-          {book.imageUrl.includes("https://localhost:44384/images") ? (
+          {book.imageUrl !== null &&
+          book.imageUrl.includes("https://localhost:44384/images") ? (
             <img src={book.imageUrl} className={classes[`book-cover`]} />
           ) : (
             <FontAwesomeIcon icon={faImage} className={classes[`book-cover`]} />

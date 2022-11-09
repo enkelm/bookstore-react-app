@@ -4,6 +4,7 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({ email: "", password: "", token: "" });
+  const [edit, setEdit] = useState(false);
   const [booksCtx, setBooksCtx] = useState([]);
   const [bookId, setBookId] = useState(0);
   const [cartCxt, setCartCxt] = useState({
@@ -15,6 +16,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         auth,
         setAuth,
+        edit,
+        setEdit,
         booksCtx,
         setBooksCtx,
         bookId,

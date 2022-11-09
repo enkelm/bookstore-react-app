@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import ModalService from "./services/ModalServices";
 import classes from "./ModalRoot.module.css";
+import useAuth from "../../../hooks/useAuth";
 
 const Backdrop = (props) => {
   return <div className={classes.backdrop} onClick={props.onConfirm} />;
 };
 
 const ModalRoot = () => {
+  const { setEdit } = useAuth();
   const [modal, setModal] = useState({});
 
   useEffect(() => {
@@ -17,6 +19,7 @@ const ModalRoot = () => {
         props,
         close: (value) => {
           setModal({});
+          setEdit(false);
         },
       });
     });
