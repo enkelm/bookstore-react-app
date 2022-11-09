@@ -39,3 +39,9 @@
   grid-area: Description;
   text-align: center;
 }
+
+.button-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}

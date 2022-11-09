@@ -7,9 +7,15 @@ import Button from "../../UI/Button/Button";
 import Register from "../../Authentication/Register/Register";
 import Login from "../../Authentication/Login/Login";
 import HeaderUser from "./HeaderUser";
+import Cart from "../../Cart/Cart";
+import CreateBook from "../../Forms/CreateBook/CreateBook";
 
 const Header = (props) => {
   const { auth } = useAuth();
+
+  const showCart = () => {
+    ModalService.open(Cart);
+  };
 
   const showLogin = () => {
     ModalService.open(Login);
@@ -19,11 +25,16 @@ const Header = (props) => {
     ModalService.open(Register);
   };
 
+  const showCreateBook = () => {
+    ModalService.open(CreateBook);
+  };
+
   return (
     <>
       <header className={classes.header}>
         <h1>ReactBookStore</h1>
-        <HeaderCartButton />
+        {auth.token && <Button onClick={showCreateBook}>Create Book</Button>}
+        {auth.token && <HeaderCartButton onClick={showCart} />}
         {!auth.token && <Button onClick={showLogin}>Login</Button>}
         {!auth.token && <Button onClick={showRegister}>Register</Button>}
         {auth.token && <HeaderUser />}

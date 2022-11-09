@@ -1,0 +1,30 @@
+.card {
+  margin: auto;
+  padding: 2rem;
+  width: 60%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.form div {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 2rem;
+  grid-template-areas: "label input";
+}
+
+.form div label {
+  grid-area: label;
+  text-align: center;
+}
+
+.form div input {
+  grid-area: input;
+}

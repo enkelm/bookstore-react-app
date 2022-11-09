@@ -1,4 +1,8 @@
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faImage,
+  faPlusCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useAuth from "../../../hooks/useAuth";
 import Button from "../../UI/Button/Button";
@@ -17,16 +21,25 @@ const BookCard = (props) => {
 
   return (
     <Card className={classes["book-card"]}>
-      <img src={props.imgURL} className={classes.images} />
+      {props.imgURL.includes("https://localhost:44384/images") ? (
+        <img src={props.imgURL} className={classes.images} />
+      ) : (
+        <FontAwesomeIcon icon={faImage} className={classes.images} />
+      )}
       <div className={classes[`book-desc`]}>
         <h4 className={classes.title}>{props.title}</h4>
         <h5 className={classes.author}>{props.author}</h5>
         <p className={classes.description}>{props.description}</p>
       </div>
-      <Button onClick={showBookInfo}>
-        Purchase{" "}
-        <FontAwesomeIcon icon={faPlusCircle} style={{ marginLeft: "1rem" }} />
-      </Button>
+      <div className={classes[`button-wrapper`]}>
+        <Button onClick={showBookInfo}>
+          Purchase
+          <FontAwesomeIcon icon={faPlusCircle} style={{ marginLeft: "1rem" }} />
+        </Button>
+        <Button>
+          Edit <FontAwesomeIcon icon={faEdit} style={{ marginLeft: "1rem" }} />
+        </Button>
+      </div>
     </Card>
   );
 };

@@ -1,11 +1,63 @@
-/* .wrapper {
-  margin: auto;
-} */
-
 .card {
   padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
 }
-.images {
-  height: 20rem;
+
+.button {
+  padding: 0.5rem 40%;
+}
+
+.input {
+  width: 60%;
+  margin-bottom: 2rem;
+  padding: 0.35rem 0.35rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #f0ebea;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-cover {
+  height: 15rem;
   border-radius: 1rem;
+}
+
+.book-desc {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.prices-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.prices-container h3 {
+  color: #464646;
+  margin: 0;
+  margin-right: auto;
+  font-weight: 400;
+}
+
+.prices-table {
+  border-collapse: collapse;
+  margin: 2rem;
+  width: 80%;
+  text-align: center;
 }
