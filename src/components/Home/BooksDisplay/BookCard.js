@@ -4,6 +4,7 @@ import {
   faPlusCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ROLES } from "../../../api/axios";
 import useAuth from "../../../hooks/useAuth";
 import CreateBook from "../../Forms/CreateBook/CreateBook";
 import Button from "../../UI/Button/Button";
@@ -13,7 +14,7 @@ import classes from "./BookCard.module.css";
 import BookInfo from "./BookInfo";
 
 const BookCard = (props) => {
-  const { booksCtx, setBookId, setEdit } = useAuth();
+  const { auth, booksCtx, setBookId, setEdit } = useAuth();
 
   const showBookInfo = () => {
     setBookId(booksCtx.findIndex((book) => book.id === props.id));
@@ -44,9 +45,12 @@ const BookCard = (props) => {
           Purchase
           <FontAwesomeIcon icon={faPlusCircle} style={{ marginLeft: "1rem" }} />
         </Button>
-        <Button onClick={showEditBook}>
-          Edit <FontAwesomeIcon icon={faEdit} style={{ marginLeft: "1rem" }} />
-        </Button>
+        {auth.role === ROLES.ADMIN && (
+          <Button onClick={showEditBook}>
+            Edit{" "}
+            <FontAwesomeIcon icon={faEdit} style={{ marginLeft: "1rem" }} />
+          </Button>
+        )}
       </div>
     </Card>
   );

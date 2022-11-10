@@ -16,7 +16,6 @@ const BooksDisplay = () => {
         .then((res) => {
           return res.data;
         });
-      // setBooks(items);
       setBooksCtx(items);
     };
     getBooks();

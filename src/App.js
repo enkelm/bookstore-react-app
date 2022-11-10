@@ -11,16 +11,29 @@ import ModalService from "./components/UI/Modal/services/ModalServices";
 import useAuth from "./hooks/useAuth";
 
 const App = () => {
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
+
+  const loginStatus = localStorage.getItem("isLoggedIn");
+
   useEffect(() => {
-    localStorage.setItem("access_token", auth.token);
-  }, [auth]);
+    if (loginStatus !== "") {
+      localStorage.setItem("access_token", auth.token);
+      localStorage.setItem("role", auth.role);
+    } else {
+      let token = localStorage.getItem("access_token");
+      let role = localStorage.getItem("role");
+      setAuth({
+        token,
+        role,
+      });
+    }
+  }, [loginStatus]);
 
   return (
     <React.Fragment>
       <ModalRoot />
       <Header />
-      {auth.token && <HomeTest />}
+      {loginStatus && <HomeTest />}
     </React.Fragment>
   );
 };

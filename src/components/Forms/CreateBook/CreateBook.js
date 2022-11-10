@@ -1,3 +1,6 @@
+import { faEdit } from "@fortawesome/free-regular-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { createAPIEndpoint, ENDPOINTS, METHODS } from "../../../api/axios";
 import useAuth from "../../../hooks/useAuth";
@@ -33,6 +36,14 @@ const CreateBook = (props) => {
       });
     // setBooks(items);
     setBooksCtx(items);
+  };
+
+  const deleteHandler = async () => {
+    await createAPIEndpoint(ENDPOINTS.PRODUCTS, METHODS.DELETE)
+      .delete(book.id)
+      .catch((error) => console.log(error));
+    getBooks();
+    props.close();
   };
 
   const submitHandler = async (event) => {
@@ -208,6 +219,7 @@ const CreateBook = (props) => {
               <input
                 id="imageFile"
                 type={"file"}
+                value={values.image}
                 onChange={(event) =>
                   setValue((prevState) => {
                     return { ...prevState, image: event.target.files[0] };
@@ -250,7 +262,19 @@ const CreateBook = (props) => {
               />
             </div>
 
-            <Button type={"submit"}>Submit</Button>
+            <div style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
+              <Button type={"submit"}>
+                Edit{" "}
+                <FontAwesomeIcon icon={faEdit} style={{ marginLeft: "1rem" }} />
+              </Button>
+              <Button onClick={deleteHandler}>
+                Delete
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  style={{ marginLeft: "1rem" }}
+                />
+              </Button>
+            </div>
           </form>
         </Card>
       ) : (
@@ -392,6 +416,7 @@ const CreateBook = (props) => {
                 type={"file"}
                 onChange={(event) =>
                   setValue((prevState) => {
+                    values.image = event.target.files[0];
                     return { ...prevState, image: event.target.files[0] };
                   })
                 }

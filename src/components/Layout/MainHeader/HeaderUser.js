@@ -8,12 +8,15 @@ const HeaderUser = () => {
   const { setAuth } = useAuth();
 
   const logoutHandler = () => {
+    localStorage.setItem("access_token", undefined);
+    localStorage.setItem("isLoggedIn", "");
+    localStorage.setItem("role", undefined);
     setAuth({});
   };
 
   return (
     <Button className={classes.iconBtn} onClick={logoutHandler}>
-      <FontAwesomeIcon icon={faUser} /> Logout
+      <FontAwesomeIcon icon={faUser} style={{ marginRight: "1rem" }} /> Logout
     </Button>
   );
 };

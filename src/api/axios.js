@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "https://localhost:44384/api/";
 
-const JWT = localStorage.getItem("access_token").replace(/['"]+/g, "");
+const JWT = localStorage.getItem("access_token");
 
 axios.defaults.headers.post["Authorization"] = `Bearer ${JWT}`;
 axios.defaults.headers.delete["Authorization"] = `Bearer ${JWT}`;
@@ -21,6 +21,11 @@ export const METHODS = {
   PUT: "Put",
   POST: "Post",
   DELETE: "Delete",
+};
+
+export const ROLES = {
+  ADMIN: "Administrator",
+  USER: "User",
 };
 
 export const createAPIEndpoint = (endpoint, method) => {

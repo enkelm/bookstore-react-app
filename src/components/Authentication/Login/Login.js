@@ -41,6 +41,8 @@ const Login = (props) => {
     setPasswordIsValid(password.trim().length > 6);
   };
 
+  localStorage.setItem("isLoggedIn", "");
+
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -48,11 +50,17 @@ const Login = (props) => {
         email: email,
         password: password,
       };
-      const token = await createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
+      let token = await createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
         .create(user)
         .then((res) => JSON.stringify(res.data.token))
         .catch((error) => console.log(error));
-      setAuth({ email, password, token });
+      let role = await createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
+        .create(user)
+        .then((res) => JSON.stringify(res.data.role[0]))
+        .catch((error) => console.log(error));
+      token = token.replace(/['"]+/g, "");
+      role = role.replace(/['"]+/g, "");
+      setAuth({ email, password, token, role });
       emailRef.current.value = "";
       setEmail("");
       passRef.current.value = "";
@@ -60,7 +68,10 @@ const Login = (props) => {
     } catch (error) {
       console.log(error);
     }
-    if (auth !== {}) props.close();
+    if (auth !== {}) {
+      localStorage.setItem("isLoggedIn", "LOGGED_IN");
+      props.close();
+    }
   };
 
   return (
