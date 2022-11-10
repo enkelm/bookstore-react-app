@@ -58,9 +58,14 @@ const Login = (props) => {
         .create(user)
         .then((res) => JSON.stringify(res.data.role[0]))
         .catch((error) => console.log(error));
+      let userId = await createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
+        .create(user)
+        .then((res) => JSON.stringify(res.data.userId))
+        .catch((error) => console.log(error));
       token = token.replace(/['"]+/g, "");
       role = role.replace(/['"]+/g, "");
-      setAuth({ email, password, token, role });
+      userId = userId.replace(/['"]+/g, "");
+      setAuth({ email, password, token, role, userId });
       emailRef.current.value = "";
       setEmail("");
       passRef.current.value = "";
@@ -76,53 +81,47 @@ const Login = (props) => {
 
   return (
     <Modal>
-      <Card className={classes.login}>
-        <form onSubmit={submitHandler}>
-          <div
-            className={`${classes.control} ${
-              emailIsValid === false ? classes.invalid : ""
-            }`}
-          >
-            <label htmlFor="email">
-              <span>E-Mail</span>
-            </label>
-            <input
-              type="email"
-              id="email"
-              ref={emailRef}
-              value={email}
-              onChange={emailChangeHandler}
-              onBlur={validateEmailHandler}
-            />
-          </div>
-          <div
-            className={`${classes.control} ${
-              passwordIsValid === false ? classes.invalid : ""
-            }`}
-          >
-            <label htmlFor="password">
-              <span>Password</span>
-            </label>
-            <input
-              type="password"
-              id="password"
-              ref={passRef}
-              value={password}
-              onChange={passwordChangeHandler}
-              onBlur={validatePasswordHandler}
-            />
-          </div>
-          <div className={classes.actions}>
-            <Button
-              type="submit"
-              className={classes.btn}
-              disabled={!formIsValid}
-            >
-              Login
-            </Button>
-          </div>
-        </form>
-      </Card>
+      <form className={classes.login} onSubmit={submitHandler}>
+        <div
+          className={`${classes.control} ${
+            emailIsValid === false ? classes.invalid : ""
+          }`}
+        >
+          <label htmlFor="email">
+            <span>E-Mail</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            ref={emailRef}
+            value={email}
+            onChange={emailChangeHandler}
+            onBlur={validateEmailHandler}
+          />
+        </div>
+        <div
+          className={`${classes.control} ${
+            passwordIsValid === false ? classes.invalid : ""
+          }`}
+        >
+          <label htmlFor="password">
+            <span>Password</span>
+          </label>
+          <input
+            type="password"
+            id="password"
+            ref={passRef}
+            value={password}
+            onChange={passwordChangeHandler}
+            onBlur={validatePasswordHandler}
+          />
+        </div>
+        <div className={classes.actions}>
+          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+            Login
+          </Button>
+        </div>
+      </form>
     </Modal>
   );
 };

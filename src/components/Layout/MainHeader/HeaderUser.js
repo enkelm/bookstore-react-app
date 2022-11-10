@@ -5,13 +5,15 @@ import Button from "../../UI/Button/Button";
 import classes from "./HeaderUser.module.css";
 
 const HeaderUser = () => {
-  const { setAuth } = useAuth();
+  const { setAuth, setCartCtx } = useAuth();
 
   const logoutHandler = () => {
     localStorage.setItem("access_token", undefined);
+    localStorage.setItem("user_id", undefined);
     localStorage.setItem("isLoggedIn", "");
     localStorage.setItem("role", undefined);
     setAuth({});
+    setCartCtx([]);
   };
 
   return (

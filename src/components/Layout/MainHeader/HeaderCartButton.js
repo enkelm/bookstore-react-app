@@ -5,12 +5,18 @@ import Button from "../../UI/Button/Button";
 import useAuth from "../../../hooks/useAuth";
 
 const HeaderCartButton = (props) => {
-  const { cartCxt } = useAuth();
+  const { cartCtx } = useAuth();
+
+  const getTotalCount = () => {
+    let totCount = 0;
+    cartCtx.forEach((item) => (totCount += item.count));
+    return totCount;
+  };
   return (
     <Button className={classes.button} onClick={props.onClick}>
       <FontAwesomeIcon icon={faCartShopping} className={classes.icon} />
       <span>Your Cart</span>
-      <span className={classes.badge}>{cartCxt.count}</span>
+      <span className={classes.badge}>{getTotalCount()}</span>
     </Button>
   );
 };

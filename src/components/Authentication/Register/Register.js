@@ -129,14 +129,14 @@ const Register = (props) => {
   return (
     <Modal>
       {success ? (
-        <Card className={classes.wrapper}>
+        <>
           <h1>Success</h1>
           <span>
             <a href="#">Sign In</a>
           </span>
-        </Card>
+        </>
       ) : (
-        <Card className={classes.wrapper}>
+        <>
           <p
             ref={errRef}
             className={errorMsg ? classes.errmsg : classes.offscreen}
@@ -392,7 +392,7 @@ const Register = (props) => {
               <a href="#">Sign In</a>
             </span>
           </p>
-        </Card>
+        </>
       )}
     </Modal>
   );

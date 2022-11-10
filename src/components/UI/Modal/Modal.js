@@ -4,11 +4,13 @@ import classes from "./Modal.module.css";
 
 const Modal = (props) => {
   return (
-    <div className={`${classes.modal} ${classes[`d-block`]}`}>
-      <div className={classes[`modal-dialog`]}>
-        <div className={classes[`modal-content`]}>{props.children}</div>
-      </div>
-    </div>
+    <Card
+      className={`${classes.modal} ${classes[`modal-content`]} ${
+        props.className
+      }`}
+    >
+      {props.children}
+    </Card>
   );
 };
 

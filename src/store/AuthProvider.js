@@ -7,9 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [edit, setEdit] = useState(false);
   const [booksCtx, setBooksCtx] = useState([]);
   const [bookId, setBookId] = useState(0);
-  const [cartCxt, setCartCxt] = useState({
-    count: 0,
-  });
+  const [cartCtx, setCartCtx] = useState(new Array());
 
   return (
     <AuthContext.Provider
@@ -22,8 +20,8 @@ export const AuthProvider = ({ children }) => {
         setBooksCtx,
         bookId,
         setBookId,
-        cartCxt,
-        setCartCxt,
+        cartCtx,
+        setCartCtx,
       }}
     >
       {children}

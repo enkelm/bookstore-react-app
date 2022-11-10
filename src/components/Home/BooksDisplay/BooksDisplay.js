@@ -61,7 +61,7 @@ const BooksDisplay = () => {
           author={book.author}
           description={book.description}
           isbn={book.isbn}
-          imgURL={book.imageUrl}
+          imgURL={`${book.imageUrl}?${Math.floor(Math.random() * 100)}`}
           listPrice={book.ListPrice}
           price={book.price}
           price50={book.price50}

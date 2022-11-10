@@ -2,12 +2,6 @@ import axios from "axios";
 
 const BASE_URL = "https://localhost:44384/api/";
 
-const JWT = localStorage.getItem("access_token");
-
-axios.defaults.headers.post["Authorization"] = `Bearer ${JWT}`;
-axios.defaults.headers.delete["Authorization"] = `Bearer ${JWT}`;
-axios.defaults.headers.put["Authorization"] = `Bearer ${JWT}`;
-
 export const ENDPOINTS = {
   ACCOUNT: "Account",
   CATEGORIES: "Categories",
@@ -29,6 +23,11 @@ export const ROLES = {
 };
 
 export const createAPIEndpoint = (endpoint, method) => {
+  const JWT = localStorage.getItem("access_token").replace(/['"]+/g, "");
+
+  axios.defaults.headers.post["Authorization"] = `Bearer ${JWT}`;
+  axios.defaults.headers.delete["Authorization"] = `Bearer ${JWT}`;
+  axios.defaults.headers.put["Authorization"] = `Bearer ${JWT}`;
   let url = BASE_URL + endpoint + "/" + method + "/";
 
   return {

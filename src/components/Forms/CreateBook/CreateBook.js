@@ -83,7 +83,7 @@ const CreateBook = (props) => {
   return (
     <Modal className={classes.card}>
       {edit ? (
-        <Card className={classes.card}>
+        <>
           <form
             autoComplete="off"
             className={classes.form}
@@ -219,7 +219,6 @@ const CreateBook = (props) => {
               <input
                 id="imageFile"
                 type={"file"}
-                value={values.image}
                 onChange={(event) =>
                   setValue((prevState) => {
                     return { ...prevState, image: event.target.files[0] };
@@ -264,10 +263,10 @@ const CreateBook = (props) => {
 
             <div style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
               <Button type={"submit"}>
-                Edit{" "}
+                Edit
                 <FontAwesomeIcon icon={faEdit} style={{ marginLeft: "1rem" }} />
               </Button>
-              <Button onClick={deleteHandler}>
+              <Button secondaryBtn={true} onClick={deleteHandler}>
                 Delete
                 <FontAwesomeIcon
                   icon={faTrash}
@@ -276,9 +275,9 @@ const CreateBook = (props) => {
               </Button>
             </div>
           </form>
-        </Card>
+        </>
       ) : (
-        <Card className={classes.card}>
+        <>
           <form
             autoComplete="off"
             className={classes.form}
@@ -459,7 +458,7 @@ const CreateBook = (props) => {
 
             <Button type={"submit"}>Submit</Button>
           </form>
-        </Card>
+        </>
       )}
     </Modal>
   );

@@ -4,7 +4,9 @@ const Button = (props) => {
   return (
     <button
       type={props.type || "button"}
-      className={`${classes.button} ${props.className}`}
+      className={`${classes.button} ${props.className} ${
+        props.secondaryBtn ? classes[`button--alt`] : ""
+      }`}
       onClick={props.onClick}
       disabled={props.disabled}
     >

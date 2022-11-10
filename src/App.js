@@ -18,13 +18,16 @@ const App = () => {
   useEffect(() => {
     if (loginStatus !== "") {
       localStorage.setItem("access_token", auth.token);
+      localStorage.setItem("user_id", auth.userId);
       localStorage.setItem("role", auth.role);
     } else {
       let token = localStorage.getItem("access_token");
       let role = localStorage.getItem("role");
+      let userId = localStorage.getItem("user_id");
       setAuth({
         token,
         role,
+        userId,
       });
     }
   }, [loginStatus]);
