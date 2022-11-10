@@ -1,13 +1,9 @@
-import useAuth from "../../hooks/useAuth";
-import BookCard from "./BooksDisplay/BookCard";
 import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
 import { createAPIEndpoint, ENDPOINTS, METHODS } from "../../api/axios";
 import BooksDisplay from "./BooksDisplay/BooksDisplay";
 
 const HomeTest = () => {
-  const { auth } = useAuth();
-
   const getToken = async () => {
     await createAPIEndpoint(ENDPOINTS.CATEGORIES, METHODS.PUT)
       .update(1, {

@@ -8,7 +8,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
+      <App
+        token={localStorage.getItem("access_token")}
+        role={localStorage.getItem("role")}
+        userId={localStorage.getItem("user_id")}
+      />
     </AuthProvider>
   </React.StrictMode>
 );

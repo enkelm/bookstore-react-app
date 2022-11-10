@@ -18,12 +18,21 @@
   border: 1px solid #8a2b06;
 }
 
-.button:hover,
-.button:active {
+.enabled:hover,
+.enabled:active {
   color: #fff;
   background-color: #2c0d00;
 }
 .button--alt:hover,
 .button--alt:active {
   background-color: red;
+}
+
+.disabled {
+  background-color: gray;
+}
+
+.disabled:hover,
+.disabled:active {
+  cursor: auto;
 }

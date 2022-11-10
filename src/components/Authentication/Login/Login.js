@@ -50,23 +50,22 @@ const Login = (props) => {
         email: email,
         password: password,
       };
-      let token = await createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
+      let response = await createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
         .create(user)
-        .then((res) => JSON.stringify(res.data.token))
+        .then((res) => res.data)
         .catch((error) => console.log(error));
-      let role = await createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
-        .create(user)
-        .then((res) => JSON.stringify(res.data.role[0]))
-        .catch((error) => console.log(error));
-      let userId = await createAPIEndpoint(ENDPOINTS.ACCOUNT, "login")
-        .create(user)
-        .then((res) => JSON.stringify(res.data.userId))
-        .catch((error) => console.log(error));
-      token = token.replace(/['"]+/g, "");
-      role = role.replace(/['"]+/g, "");
-      userId = userId.replace(/['"]+/g, "");
+
+      let token = JSON.stringify(response.token).replace(/['"]+/g, "");
+      let role = JSON.stringify(response.role[0]).replace(/['"]+/g, "");
+      let userId = JSON.stringify(response.userId).replace(/['"]+/g, "");
+
       setAuth({ email, password, token, role, userId });
+
+      localStorage.setItem("access_token", token);
+      localStorage.setItem("user_id", userId);
+      localStorage.setItem("role", role);
       emailRef.current.value = "";
+
       setEmail("");
       passRef.current.value = "";
       setPassword("");

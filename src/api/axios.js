@@ -7,6 +7,7 @@ export const ENDPOINTS = {
   CATEGORIES: "Categories",
   COVER_TYPES: "CoverTypes",
   PRODUCTS: "Products",
+  SHOPPING_CART: "ShoppingCart",
 };
 
 export const METHODS = {

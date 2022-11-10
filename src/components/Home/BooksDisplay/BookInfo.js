@@ -6,14 +6,25 @@ import classes from "./BookInfo.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../UI/Button/Button";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const BookInfo = () => {
+const BookInfo = (props) => {
   const { booksCtx, bookId, cartCtx, setCartCtx } = useAuth();
 
+  const [counter, setCounter] = useState("0");
+  const [hasValue, setHasValue] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
   const countRef = useRef();
 
   const book = booksCtx[bookId];
+
+  useEffect(() => {
+    countRef.current.focus();
+    setAddedToCart(
+      cartCtx.find((item) => item.itemId === book.id) !== undefined
+    );
+    setHasValue(counter === "0" || counter === "" || addedToCart);
+  }, [counter, cartCtx]);
 
   const addToCartHandler = () => {
     let givenCount = parseInt(countRef.current.value);
@@ -40,6 +51,7 @@ const BookInfo = () => {
       if (prevState === undefined) prevState = [];
       return [...prevState, cartItem];
     });
+    props.close();
   };
 
   return (
@@ -81,13 +93,25 @@ const BookInfo = () => {
           id="count"
           type={"number"}
           ref={countRef}
+          value={counter}
+          onChange={(event) => setCounter(event.target.value)}
           className={classes.input}
+          disabled={addedToCart}
           min="1"
           max="300"
         />
-        <Button className={classes.button} onClick={addToCartHandler}>
-          Add Item(s)
-          <FontAwesomeIcon icon={faShoppingBasket} />
+        <Button
+          className={classes.button}
+          onClick={addToCartHandler}
+          disabled={hasValue}
+        >
+          {addedToCart ? (
+            "Edit Inside Cart"
+          ) : (
+            <>
+              Add Item(s) <FontAwesomeIcon icon={faShoppingBasket} />
+            </>
+          )}
         </Button>
       </div>
     </Modal>

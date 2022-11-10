@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createAPIEndpoint, ENDPOINTS, METHODS } from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
@@ -7,7 +8,7 @@ import classes from "./Cart.module.css";
 import CartItem from "./CartItem";
 
 const Cart = (props) => {
-  const { cartCtx, setCartCtx } = useAuth();
+  const { cartCtx, setCartCtx, auth } = useAuth();
 
   const [cartTotal, setCartTotal] = useState(0);
 
@@ -21,7 +22,18 @@ const Cart = (props) => {
     setCartTotal(getCartTotal());
   }, [cartCtx]);
 
-  const makeOrderHandler = async () => {};
+  const makeOrderHandler = async () => {
+    await cartCtx.forEach((order) => {
+      createAPIEndpoint(ENDPOINTS.SHOPPING_CART, METHODS.POST)
+        .create({
+          productID: order.itemId,
+          count: order.count,
+          applicationUserId: auth.userId,
+        })
+        .catch((error) => console.log(error));
+    });
+    setCartCtx([]);
+  };
 
   return (
     <Modal>
