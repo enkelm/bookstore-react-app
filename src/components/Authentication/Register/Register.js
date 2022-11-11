@@ -127,7 +127,7 @@ const Register = (props) => {
   };
 
   return (
-    <Modal>
+    <Modal className={classes.wrapper}>
       {success ? (
         <>
           <h1>Success</h1>
@@ -374,7 +374,6 @@ const Register = (props) => {
                 <option value="User">User</option>
               </select>
             </div>
-
             <Button
               type="submit"
               disabled={

@@ -1,24 +1,17 @@
-.wrapper {
-  width: 50%;
-  display: flex;
-  margin: 0 auto;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-}
+/* .wrapper {
+  overflow: scroll;
+} */
 
 .form div {
   margin: 1rem 0;
-  display: grid;
-  grid-template-columns: 50% 50%;
+  display: flex;
+  flex-direction: column;
 }
 
 .form div label {
   font-weight: bold;
   flex: 1;
   color: #464646;
-  margin-bottom: 0.5rem;
 }
 
 .form div input {
@@ -69,4 +62,12 @@
 .invalid {
   color: red;
   margin-left: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .form div {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: 20% 50%;
+  }
 }

@@ -1,11 +1,10 @@
 .book-card {
-  /* width: 25%;
-  height: 40%; */
+  width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 1rem;
   overflow: hidden;
 }
 
@@ -42,6 +41,12 @@
 
 .button-wrapper {
   display: flex;
-  flex-direction: row;
-  gap: 2rem;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .book-card {
+    width: 80%;
+  }
 }

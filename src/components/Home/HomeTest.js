@@ -2,6 +2,7 @@ import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
 import { createAPIEndpoint, ENDPOINTS, METHODS } from "../../api/axios";
 import BooksDisplay from "./BooksDisplay/BooksDisplay";
+import classes from "./HomeTest.module.css";
 
 const HomeTest = () => {
   const getToken = async () => {
@@ -16,10 +17,10 @@ const HomeTest = () => {
   };
 
   return (
-    <Card>
+    <div className={classes.wrapper}>
       <BooksDisplay />
       <Button onClick={getToken}>Token</Button>
-    </Card>
+    </div>
   );
 };
 

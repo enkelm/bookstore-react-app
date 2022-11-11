@@ -1,8 +1,8 @@
 .card {
   padding: 1rem;
   display: flex;
-  flex-direction: row;
-  gap: 3rem;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .button {
@@ -57,7 +57,18 @@
 
 .prices-table {
   border-collapse: collapse;
-  margin: 2rem;
+  margin: 1rem;
   width: 80%;
   text-align: center;
+}
+
+@media (min-width: 768px) {
+  .card {
+    flex-direction: row;
+    gap: 3rem;
+  }
+
+  .prices-table {
+    margin: 2rem;
+  }
 }

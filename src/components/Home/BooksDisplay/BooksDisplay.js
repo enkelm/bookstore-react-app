@@ -45,12 +45,10 @@ const BooksDisplay = () => {
 
   return (
     <div
+      className={classes.wrapper}
       style={{
-        display: "grid",
         gridTemplateColumns: columns,
         gridTemplateRows: rows,
-        gap: "5rem",
-        alignItems: "center",
       }}
     >
       {booksCtx.map((book) => (
