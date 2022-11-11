@@ -79,7 +79,7 @@ const Login = (props) => {
   };
 
   return (
-    <Modal>
+    <Modal className={classes.wrapper}>
       <form className={classes.login} onSubmit={submitHandler}>
         <div
           className={`${classes.control} ${

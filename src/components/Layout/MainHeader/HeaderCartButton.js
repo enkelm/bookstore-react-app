@@ -15,7 +15,7 @@ const HeaderCartButton = (props) => {
   return (
     <Button className={classes.button} onClick={props.onClick}>
       <FontAwesomeIcon icon={faCartShopping} className={classes.icon} />
-      <span>Your Cart</span>
+      {!props.phoneDisplay && <span>Your Cart</span>}
       <span className={classes.badge}>{getTotalCount()}</span>
     </Button>
   );

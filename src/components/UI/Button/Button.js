@@ -10,6 +10,7 @@ const Button = (props) => {
       ${props.disabled ? classes.disabled : classes.enabled}`}
       onClick={props.onClick}
       disabled={props.disabled}
+      style={props.style}
     >
       {props.children}
     </button>

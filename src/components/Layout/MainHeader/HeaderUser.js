@@ -18,7 +18,7 @@ const HeaderUser = () => {
 
   return (
     <Button className={classes.iconBtn} onClick={logoutHandler}>
-      <FontAwesomeIcon icon={faUser} style={{ marginRight: "1rem" }} /> Logout
+      <FontAwesomeIcon icon={faUser} />
     </Button>
   );
 };

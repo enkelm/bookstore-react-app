@@ -10,9 +10,36 @@ import HeaderUser from "./HeaderUser";
 import Cart from "../../Cart/Cart";
 import CreateBook from "../../Forms/CreateBook/CreateBook";
 import { ROLES } from "../../../api/axios";
+import SideNav from "../SideNav/SideNav";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBars,
+  faRightToBracket,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+
+const getWindowSize = () => {
+  const { innerWidth, innerHeight } = window;
+  return { innerWidth, innerHeight };
+};
 
 const Header = (props) => {
   const { auth } = useAuth();
+
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
 
   const loginStatus = localStorage.getItem("isLoggedIn");
 
@@ -28,24 +55,69 @@ const Header = (props) => {
     ModalService.open(Register);
   };
 
-  const showCreateBook = () => {
-    ModalService.open(CreateBook);
+  const showSideNav = () => {
+    ModalService.open(SideNav, { width: windowSize.innerWidth });
   };
 
   return (
     <>
       <header className={classes.header}>
-        <h1>ReactBookStore</h1>
-        {auth.role === ROLES.ADMIN && (
-          <Button onClick={showCreateBook}>Create Book</Button>
+        <Button className={classes[`sidenav-btn`]} onClick={showSideNav}>
+          <FontAwesomeIcon icon={faBars} style={{ height: "1.5rem" }} />
+        </Button>
+        <h1>
+          {windowSize.innerWidth < 768 && loginStatus !== ""
+            ? ""
+            : "ReactBookStore"}
+        </h1>
+
+        <div className={loginStatus === "" ? classes.items : ""}>
+          {loginStatus && (
+            <HeaderCartButton
+              onClick={showCart}
+              phoneDisplay={windowSize.innerWidth < 768}
+            />
+          )}
+        </div>
+
+        {!loginStatus && (
+          <Button
+            onClick={showLogin}
+            className={windowSize.innerWidth < 768 ? classes.iconBtn : ""}
+          >
+            {windowSize.innerWidth > 768 ? "Login" : ""}
+            <FontAwesomeIcon
+              icon={faRightToBracket}
+              style={
+                windowSize.innerWidth > 768 ? { marginLeft: "0.5rem" } : {}
+              }
+            />
+          </Button>
         )}
-        {loginStatus && <HeaderCartButton onClick={showCart} />}
-        {!loginStatus && <Button onClick={showLogin}>Login</Button>}
-        {!loginStatus && <Button onClick={showRegister}>Register</Button>}
+
+        {!loginStatus && (
+          <Button
+            onClick={showRegister}
+            className={windowSize.innerWidth < 768 ? classes.iconBtn : ""}
+            style={
+              windowSize.innerWidth < 768
+                ? { marginRight: "0.5rem" }
+                : { marginRight: "1rem" }
+            }
+          >
+            {windowSize.innerWidth > 768 ? "Register" : ""}
+            <FontAwesomeIcon
+              icon={faUserPlus}
+              style={
+                windowSize.innerWidth > 768 ? { marginLeft: "0.5rem" } : {}
+              }
+            />
+          </Button>
+        )}
         {loginStatus && <HeaderUser />}
       </header>
       <div className={classes["main-image"]}>
-        <img src={bannerImage} alt="A table full of delicious food!" />
+        <img src={bannerImage} />
       </div>
     </>
   );

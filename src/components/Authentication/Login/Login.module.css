@@ -1,10 +1,17 @@
+.wrapper {
+  width: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 20%;
+  top: 35vh;
+}
+
 .login {
-  width: 90%;
-  max-width: 40rem;
-  /* margin: 2rem auto; */
-  /* padding: 1rem; */
+  width: 80%;
   background-color: white;
 }
+
 .control {
   margin: 1rem 0;
   display: flex;
@@ -44,11 +51,18 @@
 
 .actions {
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
   .control {
     align-items: center;
     flex-direction: row;
+  }
+  .wrapper {
+    width: 60%;
+    left: 20%;
+    top: 35vh;
   }
 }

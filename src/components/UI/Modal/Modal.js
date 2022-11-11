@@ -4,7 +4,10 @@ import classes from "./Modal.module.css";
 
 const Modal = (props) => {
   return (
-    <Card className={`${classes.modal}  ${props.className}`}>
+    <Card
+      className={`${classes.modal}  ${props.className}`}
+      style={props.style}
+    >
       {props.children}
     </Card>
   );

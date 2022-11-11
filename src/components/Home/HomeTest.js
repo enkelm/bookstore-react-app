@@ -19,7 +19,7 @@ const HomeTest = () => {
   return (
     <div className={classes.wrapper}>
       <BooksDisplay />
-      <Button onClick={getToken}>Token</Button>
+      {/* <Button onClick={getToken}>Token</Button> */}
     </div>
   );
 };

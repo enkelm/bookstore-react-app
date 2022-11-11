@@ -1,7 +1,8 @@
 .card {
-  margin: auto;
-  padding: 2rem;
+  display: flex;
+  justify-content: center;
   width: 60%;
+  left: 20%;
 }
 
 .form {

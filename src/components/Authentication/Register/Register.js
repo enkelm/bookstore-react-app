@@ -10,6 +10,8 @@ import Card from "../../UI/Card/Card";
 import Button from "../../UI/Button/Button";
 import classes from "./Register.module.css";
 import Modal from "../../UI/Modal/Modal";
+import ModalService from "../../UI/Modal/services/ModalServices";
+import Login from "../Login/Login";
 
 const FNAME_REGEX = /^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/;
 const LNAME_REGEX = /^[a-z,.'-]+$/;
@@ -92,6 +94,10 @@ const Register = (props) => {
     setErrorMsg("");
   }, [fname, lname, email, pass, passConfirm, phone]);
 
+  const openLogin = () => {
+    ModalService.open(Login);
+  };
+
   const submitHandler = async (event) => {
     event.preventDefault();
     let user = {
@@ -129,12 +135,7 @@ const Register = (props) => {
   return (
     <Modal className={classes.wrapper}>
       {success ? (
-        <>
-          <h1>Success</h1>
-          <span>
-            <a href="#">Sign In</a>
-          </span>
-        </>
+        openLogin()
       ) : (
         <>
           <p
@@ -388,7 +389,9 @@ const Register = (props) => {
           <p>
             Already registered?
             <span>
-              <a href="#">Sign In</a>
+              <a href="#" onClick={openLogin}>
+                Sign In
+              </a>
             </span>
           </p>
         </>
