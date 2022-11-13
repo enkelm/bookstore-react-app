@@ -1,14 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { createAPIEndpoint, ENDPOINTS } from "../../../api/axios";
 
-import Card from "../../UI/Card/Card";
 import Button from "../../UI/Button/Button";
 import classes from "./Login.module.css";
 import useAuth from "../../../hooks/useAuth";
 import Modal from "../../UI/Modal/Modal";
+import { useNavigate } from "react-router-dom";
+import Card from "../../UI/Card/Card";
 
 const Login = (props) => {
   const { auth, setAuth } = useAuth();
+
+  const navigate = useNavigate();
 
   const emailRef = useRef("");
   const passRef = useRef("");
@@ -41,7 +44,8 @@ const Login = (props) => {
     setPasswordIsValid(password.trim().length > 6);
   };
 
-  localStorage.setItem("isLoggedIn", "");
+  // console.log("bruh");
+  // localStorage.setItem("isLoggedIn", "");
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -72,14 +76,15 @@ const Login = (props) => {
     } catch (error) {
       console.log(error);
     }
+
     if (auth !== {}) {
       localStorage.setItem("isLoggedIn", "LOGGED_IN");
-      props.close();
+      navigate("/home");
     }
   };
 
   return (
-    <Modal className={classes.wrapper}>
+    <Card className={classes.wrapper}>
       <form className={classes.login} onSubmit={submitHandler}>
         <div
           className={`${classes.control} ${
@@ -121,7 +126,7 @@ const Login = (props) => {
           </Button>
         </div>
       </form>
-    </Modal>
+    </Card>
   );
 };
 

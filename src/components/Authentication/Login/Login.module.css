@@ -1,10 +1,14 @@
 .wrapper {
+  position: fixed;
   width: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
-  left: 20%;
+  left: 4%;
   top: 35vh;
+  z-index: 100;
+  overflow: hidden;
+  padding: 1rem;
 }
 
 .login {

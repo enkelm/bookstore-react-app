@@ -12,6 +12,7 @@ import classes from "./Register.module.css";
 import Modal from "../../UI/Modal/Modal";
 import ModalService from "../../UI/Modal/services/ModalServices";
 import Login from "../Login/Login";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const FNAME_REGEX = /^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/;
 const LNAME_REGEX = /^[a-z,.'-]+$/;
@@ -21,6 +22,8 @@ const PASS_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 const PHONE_REGEX = /^\+3556[0-9]{8}$/;
 
 const Register = (props) => {
+  const navigate = useNavigate();
+
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
@@ -129,274 +132,250 @@ const Register = (props) => {
     roleRef.current.value = "default";
     setRole("");
     setSuccess(true);
-    if (success) props.close();
+    if (success) navigate("/login");
   };
 
   return (
-    <Modal className={classes.wrapper}>
-      {success ? (
-        openLogin()
-      ) : (
-        <>
-          <p
-            ref={errRef}
-            className={errorMsg ? classes.errmsg : classes.offscreen}
-            aria-live="assertive"
-          >
-            {errorMsg}
-          </p>
+    <Card className={classes.wrapper}>
+      <p
+        ref={errRef}
+        className={errorMsg ? classes.errmsg : classes.offscreen}
+        aria-live="assertive"
+      >
+        {errorMsg}
+      </p>
 
-          <h1>Register</h1>
-          <form className={classes.form} onSubmit={submitHandler}>
-            <div>
-              <label htmlFor="first-name">
-                First Name
-                <span className={validFname ? classes.valid : classes.hide}>
-                  <FontAwesomeIcon icon={faCheck} />
-                </span>
-                <span
-                  className={
-                    validFname || !email ? classes.hide : classes.invalid
-                  }
-                >
-                  <FontAwesomeIcon icon={faTimes} />
-                </span>
-              </label>
-
-              <input
-                type="text"
-                id="first-name"
-                ref={firstNameRef}
-                autoComplete="off"
-                onChange={(event) => setFName(event.target.value)}
-                value={fname}
-                required
-                aria-invalid={validFname ? "false" : true}
-                aria-describedby="firstnamenote"
-                onFocus={() => setFnameFocus(true)}
-                onBlur={() => setFnameFocus(false)}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="last-name">
-                Last Name
-                <span className={validLname ? classes.valid : classes.hide}>
-                  <FontAwesomeIcon icon={faCheck} />
-                </span>
-                <span
-                  className={
-                    validLname || !email ? classes.hide : classes.invalid
-                  }
-                >
-                  <FontAwesomeIcon icon={faTimes} />
-                </span>
-              </label>
-
-              <input
-                type="text"
-                id="last-name"
-                ref={lastNameRef}
-                autoComplete="off"
-                onChange={(event) => setLName(event.target.value)}
-                value={lname}
-                required
-                aria-invalid={validLname ? "false" : true}
-                aria-describedby="lastnamenote"
-                onFocus={() => setLnameFocus(true)}
-                onBlur={() => setLnameFocus(false)}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email">
-                Email
-                <span className={validEmail ? classes.valid : classes.hide}>
-                  <FontAwesomeIcon icon={faCheck} />
-                </span>
-                <span
-                  className={
-                    validEmail || !email ? classes.hide : classes.invalid
-                  }
-                >
-                  <FontAwesomeIcon icon={faTimes} />
-                </span>
-              </label>
-
-              <input
-                type="email"
-                id="email"
-                ref={emailRef}
-                autoComplete="off"
-                onChange={(event) => setEmail(event.target.value)}
-                value={email}
-                required
-                aria-invalid={validEmail ? "false" : true}
-                aria-describedby="emailnote"
-                onFocus={() => setEmailFocus(true)}
-                onBlur={() => setEmailFocus(false)}
-              />
-            </div>
-
-            <p
-              id="emailnote"
-              className={
-                emailFocus && email && !validEmail
-                  ? classes.instructions
-                  : classes.offscreen
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} /> Invalid email!
-            </p>
-
-            <div>
-              <label htmlFor="pass">
-                Password
-                <span className={validPass ? classes.valid : classes.hide}>
-                  <FontAwesomeIcon icon={faCheck} />
-                </span>
-                <span
-                  className={
-                    validPass || !pass ? classes.hide : classes.invalid
-                  }
-                >
-                  <FontAwesomeIcon icon={faTimes} />
-                </span>
-              </label>
-              <input
-                type="password"
-                id="pass"
-                ref={passRef}
-                onChange={(e) => setPass(e.target.value)}
-                required
-                aria-invalid={validPass ? "false" : true}
-                aria-describedby="passnote"
-                onFocus={() => setPassFocus(true)}
-                onBlur={() => setPassFocus(false)}
-              />
-            </div>
-            <p
-              id="passnote"
-              className={
-                passFocus && !validPass
-                  ? classes.instructions
-                  : classes.offscreen
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} /> Invalid password!
-            </p>
-
-            <div>
-              <label htmlFor="confirm-pass">
-                Confirm Password
-                <span
-                  className={
-                    validPassConfirm && passConfirm
-                      ? classes.valid
-                      : classes.hide
-                  }
-                >
-                  <FontAwesomeIcon icon={faCheck} />
-                </span>
-                <span
-                  className={
-                    validPassConfirm || !passConfirm
-                      ? classes.hide
-                      : classes.invalid
-                  }
-                >
-                  <FontAwesomeIcon icon={faTimes} />
-                </span>
-              </label>
-              <input
-                type="password"
-                id="confirm-pass"
-                ref={passConfirmRef}
-                onChange={(e) => setPassConfirm(e.target.value)}
-                required
-                aria-invalid={validPassConfirm ? "false" : true}
-                aria-describedby="confirm-passnote"
-                onFocus={() => setPassConfirmFocus(true)}
-                onBlur={() => setPassConfirmFocus(false)}
-              />
-            </div>
-
-            <p
-              id="confirm-passnote"
-              className={
-                passFocus && !validPass
-                  ? classes.instructions
-                  : classes.offscreen
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} /> Must match the first
-              password input field.
-            </p>
-
-            <div>
-              <label htmlFor="phone">
-                Phone Number
-                <span className={validPhone ? classes.valid : classes.hide}>
-                  <FontAwesomeIcon icon={faCheck} />
-                </span>
-                <span
-                  className={
-                    validPhone || !phone ? classes.hide : classes.invalid
-                  }
-                >
-                  <FontAwesomeIcon icon={faTimes} />
-                </span>
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                ref={phoneRef}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-                aria-invalid={validPhone ? "false" : true}
-                aria-describedby="phonenote"
-                onFocus={() => setPhoneFocus(true)}
-                onBlur={() => setPhoneFocus(false)}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="role-select">Select Role</label>
-              <select
-                ref={roleRef}
-                id="role-select"
-                onChange={() => setRole(roleRef.current.value)}
-                defaultValue={"default"}
-              >
-                <option value={"default"} disabled hidden>
-                  Choose a Role
-                </option>
-                <option value="Administrator">Administrator</option>
-                <option value="User">User</option>
-              </select>
-            </div>
-            <Button
-              type="submit"
-              disabled={
-                !validFname || !validLname || !validEmail || !validPassConfirm
-                  ? true
-                  : false
-              }
-            >
-              Sign Up
-            </Button>
-          </form>
-          <p>
-            Already registered?
-            <span>
-              <a href="#" onClick={openLogin}>
-                Sign In
-              </a>
+      <h1>Register</h1>
+      <form className={classes.form} onSubmit={submitHandler}>
+        <div>
+          <label htmlFor="first-name">
+            First Name
+            <span className={validFname ? classes.valid : classes.hide}>
+              <FontAwesomeIcon icon={faCheck} />
             </span>
-          </p>
-        </>
-      )}
-    </Modal>
+            <span
+              className={validFname || !email ? classes.hide : classes.invalid}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+          </label>
+
+          <input
+            type="text"
+            id="first-name"
+            ref={firstNameRef}
+            autoComplete="off"
+            onChange={(event) => setFName(event.target.value)}
+            value={fname}
+            required
+            aria-invalid={validFname ? "false" : true}
+            aria-describedby="firstnamenote"
+            onFocus={() => setFnameFocus(true)}
+            onBlur={() => setFnameFocus(false)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="last-name">
+            Last Name
+            <span className={validLname ? classes.valid : classes.hide}>
+              <FontAwesomeIcon icon={faCheck} />
+            </span>
+            <span
+              className={validLname || !email ? classes.hide : classes.invalid}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+          </label>
+
+          <input
+            type="text"
+            id="last-name"
+            ref={lastNameRef}
+            autoComplete="off"
+            onChange={(event) => setLName(event.target.value)}
+            value={lname}
+            required
+            aria-invalid={validLname ? "false" : true}
+            aria-describedby="lastnamenote"
+            onFocus={() => setLnameFocus(true)}
+            onBlur={() => setLnameFocus(false)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email">
+            Email
+            <span className={validEmail ? classes.valid : classes.hide}>
+              <FontAwesomeIcon icon={faCheck} />
+            </span>
+            <span
+              className={validEmail || !email ? classes.hide : classes.invalid}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            ref={emailRef}
+            autoComplete="off"
+            onChange={(event) => setEmail(event.target.value)}
+            value={email}
+            required
+            aria-invalid={validEmail ? "false" : true}
+            aria-describedby="emailnote"
+            onFocus={() => setEmailFocus(true)}
+            onBlur={() => setEmailFocus(false)}
+          />
+        </div>
+
+        <p
+          id="emailnote"
+          className={
+            emailFocus && email && !validEmail
+              ? classes.instructions
+              : classes.offscreen
+          }
+        >
+          <FontAwesomeIcon icon={faInfoCircle} /> Invalid email!
+        </p>
+
+        <div>
+          <label htmlFor="pass">
+            Password
+            <span className={validPass ? classes.valid : classes.hide}>
+              <FontAwesomeIcon icon={faCheck} />
+            </span>
+            <span
+              className={validPass || !pass ? classes.hide : classes.invalid}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+          </label>
+          <input
+            type="password"
+            id="pass"
+            ref={passRef}
+            onChange={(e) => setPass(e.target.value)}
+            required
+            aria-invalid={validPass ? "false" : true}
+            aria-describedby="passnote"
+            onFocus={() => setPassFocus(true)}
+            onBlur={() => setPassFocus(false)}
+          />
+        </div>
+        <p
+          id="passnote"
+          className={
+            passFocus && !validPass ? classes.instructions : classes.offscreen
+          }
+        >
+          <FontAwesomeIcon icon={faInfoCircle} /> Invalid password!
+        </p>
+
+        <div>
+          <label htmlFor="confirm-pass">
+            Confirm Password
+            <span
+              className={
+                validPassConfirm && passConfirm ? classes.valid : classes.hide
+              }
+            >
+              <FontAwesomeIcon icon={faCheck} />
+            </span>
+            <span
+              className={
+                validPassConfirm || !passConfirm
+                  ? classes.hide
+                  : classes.invalid
+              }
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+          </label>
+          <input
+            type="password"
+            id="confirm-pass"
+            ref={passConfirmRef}
+            onChange={(e) => setPassConfirm(e.target.value)}
+            required
+            aria-invalid={validPassConfirm ? "false" : true}
+            aria-describedby="confirm-passnote"
+            onFocus={() => setPassConfirmFocus(true)}
+            onBlur={() => setPassConfirmFocus(false)}
+          />
+        </div>
+
+        <p
+          id="confirm-passnote"
+          className={
+            passFocus && !validPass ? classes.instructions : classes.offscreen
+          }
+        >
+          <FontAwesomeIcon icon={faInfoCircle} /> Must match the first password
+          input field.
+        </p>
+
+        <div>
+          <label htmlFor="phone">
+            Phone Number
+            <span className={validPhone ? classes.valid : classes.hide}>
+              <FontAwesomeIcon icon={faCheck} />
+            </span>
+            <span
+              className={validPhone || !phone ? classes.hide : classes.invalid}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            ref={phoneRef}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+            aria-invalid={validPhone ? "false" : true}
+            aria-describedby="phonenote"
+            onFocus={() => setPhoneFocus(true)}
+            onBlur={() => setPhoneFocus(false)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="role-select">Select Role</label>
+          <select
+            ref={roleRef}
+            id="role-select"
+            onChange={() => setRole(roleRef.current.value)}
+            defaultValue={"default"}
+          >
+            <option value={"default"} disabled hidden>
+              Choose a Role
+            </option>
+            <option value="Administrator">Administrator</option>
+            <option value="User">User</option>
+          </select>
+        </div>
+        <Button
+          type="submit"
+          disabled={
+            !validFname || !validLname || !validEmail || !validPassConfirm
+              ? true
+              : false
+          }
+        >
+          Sign Up
+        </Button>
+      </form>
+      <p>
+        Already registered?
+        <span>
+          <NavLink to="/login">Sign In</NavLink>
+        </span>
+      </p>
+    </Card>
   );
 };
 

@@ -1,9 +1,15 @@
 .wrapper {
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 80%;
+  left: 7%;
+  top: 15vh;
+  z-index: 100;
+  overflow: hidden;
+  padding: 1rem;
 }
 
 .form {

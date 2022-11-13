@@ -6,7 +6,7 @@
   left: 0;
   background-color: #20286d;
   overflow-x: hidden;
-  padding-top: 60px;
+  padding-top: 2rem;
   transition: 0.5s;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -34,3 +34,23 @@
 .sidenav a:hover {
   color: #fff;
 }
+
+.section-div {
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  border-bottom: 1px solid #fff;
+  line-height: 0.1em;
+  margin: 2rem 0 2rem;
+}
+
+.section-div span {
+  background: #20286d;
+  padding: 0 1rem;
+}
+
+/* @media (min-width: 768px) {
+  .section-div {
+    width: 100%;
+  }
+} */

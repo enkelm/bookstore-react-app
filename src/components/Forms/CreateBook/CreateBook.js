@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { createAPIEndpoint, ENDPOINTS, METHODS } from "../../../api/axios";
 import useAuth from "../../../hooks/useAuth";
 import Button from "../../UI/Button/Button";
-import Card from "../../UI/Card/Card";
 import Modal from "../../UI/Modal/Modal";
 import classes from "./CreateBook.module.css";
 
@@ -261,7 +260,7 @@ const CreateBook = (props) => {
               />
             </div>
 
-            <div style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
+            <div className={classes.action}>
               <Button type={"submit"}>
                 Edit
                 <FontAwesomeIcon icon={faEdit} style={{ marginLeft: "1rem" }} />

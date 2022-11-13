@@ -18,6 +18,7 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const getWindowSize = () => {
   const { innerWidth, innerHeight } = window;
@@ -26,6 +27,8 @@ const getWindowSize = () => {
 
 const Header = (props) => {
   const { auth } = useAuth();
+
+  const navigate = useNavigate();
 
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
@@ -48,11 +51,11 @@ const Header = (props) => {
   };
 
   const showLogin = () => {
-    ModalService.open(Login);
+    navigate("/login");
   };
 
   const showRegister = () => {
-    ModalService.open(Register);
+    navigate("/register");
   };
 
   const showSideNav = () => {

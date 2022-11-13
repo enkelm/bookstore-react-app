@@ -1,0 +1,18 @@
+.item {
+  width: 30vw;
+  display: flex;
+  flex-direction: row;
+  padding: 0.25rem 0.5rem;
+  border-radius: 2rem;
+}
+
+.item h3 {
+  margin-left: 1rem;
+  margin-right: auto;
+}
+
+.iconBtn {
+  background-color: #fff;
+  padding: 0.5rem;
+  color: #9868a7;
+}
