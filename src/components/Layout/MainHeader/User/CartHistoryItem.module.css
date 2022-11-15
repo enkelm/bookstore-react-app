@@ -1,0 +1,29 @@
+.wrapper {
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.badge {
+  color: #fff;
+  background-color: #8b1617;
+  padding: 0.25rem 1rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+.button:hover .badge,
+.button:active .badge {
+  background-color: #9e3335;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    width: 80%;
+  }
+}

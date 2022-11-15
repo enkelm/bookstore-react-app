@@ -69,7 +69,7 @@ const SideNav = (props) => {
         </h2>
       )}
 
-      {auth.role === ROLES.ADMIN && (
+      {(auth.role === ROLES.EDITOR || auth.role === ROLES.ADMIN) && (
         <div className={classes[`sidenav__item`]}>
           <FontAwesomeIcon icon={faListCheck} style={{ marginRight: "1rem" }} />
           <NavLink to="/properties">Properties Page</NavLink>

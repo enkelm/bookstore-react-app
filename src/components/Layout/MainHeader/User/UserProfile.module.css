@@ -1,0 +1,15 @@
+.wrapper {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5vh;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    left: 23vw;
+    width: 50vw;
+  }
+}

@@ -354,8 +354,9 @@ const Register = (props) => {
             <option value={"default"} disabled hidden>
               Choose a Role
             </option>
-            <option value="Administrator">Administrator</option>
             <option value="User">User</option>
+            <option value="Editor">Editor</option>
+            <option value="Administrator">Administrator</option>
           </select>
         </div>
         <Button

@@ -19,8 +19,9 @@ export const METHODS = {
 };
 
 export const ROLES = {
-  ADMIN: "Administrator",
   USER: "User",
+  EDITOR: "Editor",
+  ADMIN: "Administrator",
 };
 
 export const createAPIEndpoint = (endpoint, method) => {
