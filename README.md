@@ -18,11 +18,16 @@ To properly run this site please install and run [its API](https://github.com/en
 
 ## Notable Features/Functions
 
-<ul>
-  <li>HTTP requests using axios library</li>
-  <li>App-wide storage using React Context API and a simple custom hook</li>
-  <li>Role based accessibility for various specific CRUD operations</li>
-  <li>React Routing v6 with authentication for certain parts of the site</li>
-  <li>Reusable Modal component with createPortal</li>
-  <li>Responsive Design utilizing CSS media queries and inline React styling</li>
-</ul>
+* HTTP requests using axios library
+  
+* App-wide storage using React Context API and a simple custom hook
+
+* Role based accessibility for various specific CRUD operations
+
+* React Routing v6 with authentication for certain parts of the site
+
+* Reusable Modal component with createPortal
+
+* Responsive Design utilizing CSS media queries and inline React styling
+
+* Animations using Animate.css
