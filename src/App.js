@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
+import "animate.css";
 import Login from "./components/Authentication/Login/Login";
 import Register from "./components/Authentication/Register/Register";
 import HomeTest from "./components/Home/HomeTest";

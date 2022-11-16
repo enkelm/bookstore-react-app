@@ -1,15 +1,10 @@
 import HeaderCartButton from "./HeaderCartButton";
 import classes from "./Header.module.css";
 import bannerImage from "../../../assets/images/test-banner.png";
-import useAuth from "../../../hooks/useAuth";
 import ModalService from "../../UI/Modal/services/ModalServices";
 import Button from "../../UI/Button/Button";
-import Register from "../../Authentication/Register/Register";
-import Login from "../../Authentication/Login/Login";
 import HeaderUser from "./HeaderUser";
 import Cart from "../../Cart/Cart";
-import CreateBook from "../../Forms/CreateBook/CreateBook";
-import { ROLES } from "../../../api/axios";
 import SideNav from "../SideNav/SideNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -26,8 +21,6 @@ const getWindowSize = () => {
 };
 
 const Header = (props) => {
-  const { auth } = useAuth();
-
   const navigate = useNavigate();
 
   const [windowSize, setWindowSize] = useState(getWindowSize());

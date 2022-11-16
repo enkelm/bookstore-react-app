@@ -10,20 +10,27 @@ import classes from "./CartHistoryItem.module.css";
 const CartHistoryItem = (props) => {
   const { booksCtx } = useAuth();
   const [bookId, setBookId] = useState(0);
+  const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
     setBookId(booksCtx.findIndex((book) => book.id === props.productId));
+    setDeleted(false);
   }, []);
 
   const deleteHandler = async () => {
     await createAPIEndpoint(ENDPOINTS.SHOPPING_CART, METHODS.DELETE)
       .delete(props.id)
       .catch((error) => console.log(error));
+    setDeleted(true);
   };
 
   const book = booksCtx[bookId];
   return (
-    <Card className={classes.wrapper}>
+    <Card
+      className={`${classes.wrapper} animate__animated  ${
+        deleted ? "animate__zoomOutLeft" : ""
+      }`}
+    >
       <h2>{book.title}</h2>
       <span className={classes.badge}>{props.count}</span>
       <Button

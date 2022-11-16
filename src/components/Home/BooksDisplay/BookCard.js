@@ -28,7 +28,9 @@ const BookCard = (props) => {
   };
 
   return (
-    <Card className={classes["book-card"]}>
+    <Card
+      className={`${classes["book-card"]} animate__animated animate__bounceIn `}
+    >
       {props.imgURL !== null &&
       props.imgURL.includes("https://localhost:44384/images") ? (
         <img src={props.imgURL} className={classes.images} />

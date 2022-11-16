@@ -9,18 +9,6 @@ const BooksDisplay = () => {
   const { booksCtx, setBooksCtx } = useAuth();
   // const [books, setBooks] = useState([]);
 
-  useEffect(() => {
-    const getBooks = async () => {
-      let items = await createAPIEndpoint(ENDPOINTS.PRODUCTS, METHODS.GET_ALL)
-        .fetchAll()
-        .then((res) => {
-          return res.data;
-        });
-      setBooksCtx(items);
-    };
-    getBooks();
-  }, []);
-
   const numColumns = () => {
     if (booksCtx.length === 1) return "1fr";
     if (booksCtx.length === 2) return "1fr 1fr";

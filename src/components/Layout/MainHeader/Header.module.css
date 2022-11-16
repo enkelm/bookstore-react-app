@@ -21,6 +21,10 @@
   margin: 0.4rem 0 0 1rem;
 }
 
+.sidenav-btn:hover {
+  background-color: #20286d;
+}
+
 .header h1 {
   margin-right: auto;
 }

@@ -82,7 +82,9 @@ const SideNav = (props) => {
             icon={faBookMedical}
             style={{ marginRight: "1rem" }}
           />
-          <a onClick={showCreateBook}>Create Book</a>
+          <a style={{ cursor: "pointer" }} onClick={showCreateBook}>
+            Create Book
+          </a>
         </div>
       )}
 
@@ -92,7 +94,9 @@ const SideNav = (props) => {
             icon={faBookMedical}
             style={{ marginRight: "1rem" }}
           />
-          <a onClick={showCreateCoverType}>Add Cover Type</a>
+          <a style={{ cursor: "pointer" }} onClick={showCreateCoverType}>
+            Add Cover Type
+          </a>
         </div>
       )}
 
@@ -102,7 +106,9 @@ const SideNav = (props) => {
             icon={faBookMedical}
             style={{ marginRight: "1rem" }}
           />
-          <a onClick={showCreateCategory}>Add Category</a>
+          <a style={{ cursor: "pointer" }} onClick={showCreateCategory}>
+            Add Category
+          </a>
         </div>
       )}
     </Modal>
