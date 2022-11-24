@@ -89,7 +89,7 @@ const CreateCoverType = (props) => {
               }
             />
           </div>
-          <div className={classes.action}>
+          <section className={classes.action}>
             <Button type={"submit"} onClick={submitHandler}>
               Edit
               <FontAwesomeIcon icon={faEdit} style={{ marginLeft: "1rem" }} />
@@ -98,7 +98,7 @@ const CreateCoverType = (props) => {
               Delete
               <FontAwesomeIcon icon={faTrash} style={{ marginLeft: "1rem" }} />
             </Button>
-          </div>
+          </section>
         </form>
       ) : (
         <form
@@ -107,7 +107,7 @@ const CreateCoverType = (props) => {
           onSubmit={submitHandler}
         >
           <h3 style={{ marginBottom: "0" }}>Create Cover Type</h3>
-          <div>
+          <div className={classes.container}>
             <label htmlFor="name">Name</label>
             <input
               id="name"
@@ -120,12 +120,12 @@ const CreateCoverType = (props) => {
               }
             />
           </div>
-          <div className={classes.action}>
+          <section className={classes.action}>
             <Button type={"submit"} onClick={submitHandler}>
               Submit
               <FontAwesomeIcon icon={faEdit} style={{ marginLeft: "1rem" }} />
             </Button>
-          </div>
+          </section>
         </form>
       )}
     </Modal>

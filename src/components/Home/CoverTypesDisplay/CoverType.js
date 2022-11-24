@@ -36,7 +36,7 @@ const CoverType = (props) => {
   };
 
   return (
-    <Card className={classes.item}>
+    <Card className={`${classes.item} animate__animated animate__zoomIn`}>
       <h3>{props.name}</h3>
       <Button
         onClick={showEdit}

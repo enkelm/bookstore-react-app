@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createAPIEndpoint, ENDPOINTS } from "../../../api/axios";
 
 import Button from "../../UI/Button/Button";
@@ -22,6 +22,10 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
+
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
 
@@ -44,9 +48,6 @@ const Login = (props) => {
     setPasswordIsValid(password.trim().length > 6);
   };
 
-  // console.log("bruh");
-  // localStorage.setItem("isLoggedIn", "");
-
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -59,25 +60,31 @@ const Login = (props) => {
         .then((res) => res.data)
         .catch((error) => console.log(error));
 
-      let token = JSON.stringify(response.token).replace(/['"]+/g, "");
-      let role = JSON.stringify(response.role[0]).replace(/['"]+/g, "");
-      let userId = JSON.stringify(response.userId).replace(/['"]+/g, "");
+      let token = "undefined";
+      let role = "undefined";
+      let userId = "undefined";
 
-      setAuth({ email, password, token, role, userId });
+      if (response !== undefined) {
+        token = JSON.stringify(response.token).replace(/['"]+/g, "");
+        role = JSON.stringify(response.role[0]).replace(/['"]+/g, "");
+        userId = JSON.stringify(response.userId).replace(/['"]+/g, "");
+
+        setAuth({ email, password, token, role, userId });
+      }
 
       localStorage.setItem("access_token", token);
       localStorage.setItem("user_id", userId);
       localStorage.setItem("role", role);
-      emailRef.current.value = "";
 
-      setEmail("");
-      passRef.current.value = "";
-      setPassword("");
+      // emailRef.current.value = "";
+      // setEmail("");
+      // passRef.current.value = "";
+      // setPassword("");
     } catch (error) {
       console.log(error);
     }
 
-    if (auth !== {}) {
+    if (localStorage.getItem("access_token") !== "undefined") {
       localStorage.setItem("isLoggedIn", "LOGGED_IN");
       navigate("/home");
     }

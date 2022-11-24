@@ -36,7 +36,9 @@ const Category = (props) => {
   };
 
   return (
-    <Card className={classes.item}>
+    <Card
+      className={`${classes.item} animate__animated animate__zoomIn animate__faster`}
+    >
       <h3>{props.name}</h3>
       <Button
         onClick={showEdit}

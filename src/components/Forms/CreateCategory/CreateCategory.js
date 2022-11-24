@@ -108,7 +108,7 @@ const CreateCategory = (props) => {
               }
             />
           </div>
-          <div className={classes.action}>
+          <section className={classes.action}>
             <Button type={"submit"} onClick={submitHandler}>
               Edit
               <FontAwesomeIcon icon={faEdit} style={{ marginLeft: "1rem" }} />
@@ -117,7 +117,7 @@ const CreateCategory = (props) => {
               Delete
               <FontAwesomeIcon icon={faTrash} style={{ marginLeft: "1rem" }} />
             </Button>
-          </div>
+          </section>
         </form>
       ) : (
         <form
